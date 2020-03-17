@@ -1,5 +1,6 @@
 import React from 'react';
-import './App.css';
+import '../public/scss/app.scss';
+
 import UserRegistration from './Components/UserRegistration'
 
 function App() {

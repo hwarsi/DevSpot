@@ -16,10 +16,10 @@ class UserRegistration extends Component {
 
     render() {
         return (
-            <div className="FormContainer">
+            <div className="FormContainer" >
                 <div className="drow">
                     <div className="dcol">
-                        Testing...
+                       <button onClick={this.handleSubmit}>Hey</button>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,74 @@
+
+@mixin flexCenter($flexDirection, $pos) {
+    height: 100vh;
+    display: flex;
+    justify-content: $pos;
+    align-items: $pos;
+    flex-direction: $flexDirection;
+}
+
+/** You can also use @extend to include a imported scss file's css*/
+
+body {
+    @include flexCenter(column, center);
+    background-color: black;
+
+    button{
+        background-color: red;
+        &:hover{
+            background-color: cyan;
+        };
+        &::after {
+            content: 'helloo...'
+        };
+    }
+}
+
+/** (fr one unit of space) (vh,vw are percentage of screen) (rem does multipled of root element)*/
+@media screen and (max-width: 65rem) {
+    body {
+        background-color: green;
+    }
+}
+
+
+
+/** Grid Box Guide */
+
+.formContainer {
+    @include gridBox2();
+}
+
+@mixin gridBox() {
+    height: 100vh;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 2fr);
+
+    grid-column-gap: 30px;
+    grid-row-gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin gridBox1() {
+    height: 100vh;
+    display:grid;
+    grid-template-columns: auto;
+    grid-auto-rows: minmax(150px, 300px);
+
+    grid-gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin gridBox2() {
+    height: 100vh;
+    display:grid;
+    grid-column: span 2;
+    grid-row: span 3;
+
+    grid-gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
