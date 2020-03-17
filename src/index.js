@@ -1,7 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import './styles/scss/app.scss';
 
+import UserRegistration from './Components/UserRegistration'
+import NavBar from './Components/Navbar/Navbar'
+
+function MainApp() {
+  return (
+    <div className="App">
+        <NavBar/>
+        <UserRegistration />
+    </div>
+  );
+}
+
+ReactDOM.render(<MainApp />, document.getElementById('root'));

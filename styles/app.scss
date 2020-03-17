@@ -35,10 +35,6 @@ body {
 
 /** Grid Box Guide */
 
-.formContainer {
-    @include gridBox2();
-}
-
 @mixin gridBox() {
     height: 100vh;
     display:grid;
@@ -71,4 +67,9 @@ body {
     grid-gap: 40px;
     justify-content: center;
     align-items: center;
+}
+
+
+.formContainer {
+    @include gridBox2();
 }
