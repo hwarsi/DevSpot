@@ -14,4 +14,3 @@ function MainApp() {
 }
 
 ReactDOM.render(<MainApp />, document.getElementById('root'));
-
