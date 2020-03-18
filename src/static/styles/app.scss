@@ -1,41 +1,67 @@
 
-@mixin flexCenter($flexDirection, $pos) {
+@mixin flexBox($flexDirection, $position) {
     height: 100vh;
     display: flex;
-    justify-content: $pos;
-    align-items: $pos;
+    justify-content: $position;
+    align-items: $position;
     flex-direction: $flexDirection;
 }
 
-/** You can also use @extend to include a imported scss file's css*/
+@mixin gridBox($height) {
+    height: $height;
+    display:grid;
+    grid-column: span 2;
+    grid-row: span 3;
 
-body {
-    @include flexCenter(column, center);
-    background-color: black;
-
-    button{
-        background-color: red;
-        &:hover{
-            background-color: cyan;
-        };
-        &::after {
-            content: 'helloo...'
-        };
-    }
+    grid-gap: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
-/** (fr one unit of space) (vh,vw are percentage of screen) (rem does multipled of root element)*/
-@media screen and (max-width: 65rem) {
+.drow {
+    @include flexBox(row, center );
+}
+
+.dcol {
+    @include flexBox(column, center );
+}
+
+/** Desktops, Laptops */
+@media (min-width: 1025px) {
     body {
+        @include flexBox(column, center);
+        background-color: black;
+
+        button{
+            background-color: red;
+            &:hover{
+                background-color: cyan;
+            };
+        }
+    }
+}
+  
+/** Tablets, Ipads (portrait)*/
+@media (max-width: 768px) {
+    body {
+        @include gridBox(100vh);
         background-color: green;
     }
 }
 
+/** You can also use @extend to include a imported scss file's css*/
+/** (fr one unit of space) (vh,vw are percentage of screen) (rem does multipled of root element)*/
 
 
-/** Grid Box Guide */
+/** Tablets, Ipads (landscape)*/
+@media (min-width: 768px) and (orientation: landscape) {}
 
-@mixin gridBox() {
+/** Smartphones (Portrait) */
+@media (min-width: 320px) and (max-width: 480px) {}
+
+
+/** Grid Box Examples */
+@mixin gridBox1() {
     height: 100vh;
     display:grid;
     grid-template-columns: repeat(4, 1fr);
@@ -47,7 +73,7 @@ body {
     align-items: center;
 }
 
-@mixin gridBox1() {
+@mixin gridBox2() {
     height: 100vh;
     display:grid;
     grid-template-columns: auto;
@@ -56,20 +82,4 @@ body {
     grid-gap: 20px;
     justify-content: center;
     align-items: center;
-}
-
-@mixin gridBox2() {
-    height: 100vh;
-    display:grid;
-    grid-column: span 2;
-    grid-row: span 3;
-
-    grid-gap: 40px;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.formContainer {
-    @include gridBox2();
 }
