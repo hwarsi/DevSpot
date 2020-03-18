@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import './styles/app.scss';
+import './static/styles/app.scss';
 
-import UserRegistration from './Components/UserRegistration'
+import UserRegistration from './Components/Registration/UserRegistration'
 import NavBar from './Components/Navbar/Navbar'
 
 function MainApp() {
