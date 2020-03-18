@@ -1,37 +1,28 @@
-import React, {Component} from 'react';    
+import React, {Component} from 'react';  
+import logo from '../../static/img/Logo.png'
+import Logo from "./Logo"
+import SearchBar from './SearchBar'
+import ProfileButton from './Profilebutton';
 
 
-class SearchBar extends Component {
-  render() {
-    return( 
-      <form>
-        <input type="text"/>
-      </form>
-    );
-  }
-}
-
-class Logo extends Component {
-  render() {
-    return( 
-      <form>
-        <input type="text"/>
-      </form>
-    );
-  }
-}
 
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+
+  }
+
     render() {
       return (
         <div>
           <SearchBar/>
+          <Logo />
+          <ProfileButton/>
         </div>
       );
   }
 }
 
-<Logo img=
 
 export default NavBar;
   
