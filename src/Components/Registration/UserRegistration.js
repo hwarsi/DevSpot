@@ -17,6 +17,15 @@ class UserRegistration extends Component {
     render() {
         return (
             <div className="FormContainer" >
+                <h4>Sign Up</h4>
+                <p>It's quick and easy</p>
+                <input type="text" name="firstName" />
+                <input type="text" name="lastName" />
+                <input type="text" name="contact" />
+                <input type="text" name="password" />
+                <div>
+                    
+                </div>
                 <div className="drow">
                     <div className="dcol">
                        <button onClick={this.handleSubmit}>Hey</button>
