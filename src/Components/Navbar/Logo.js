@@ -15,7 +15,7 @@ class Logo extends Component {
   }
     render() {
       return( 
-       <button onClick={this.routeme}><img src={logo} alt="logo" style={{height:20,width:20}}/></button> 
+       <i className="Logo" onClick={this.routeme}><img src={logo} alt="logo" className="icons" /></i> 
         );
     }
   }

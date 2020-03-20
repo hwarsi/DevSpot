@@ -13,7 +13,7 @@ class ProfileButton extends Component {
     }
     render() {
         return(
-        <button onClick={this.handleProfile}><img src={profile} alt="logo" style={{height:80,width:80}}/></button> 
+        <i onClick={this.handleProfile}><img src={profile} alt="profile" className = "icons" /></i> 
         );
     }
 }

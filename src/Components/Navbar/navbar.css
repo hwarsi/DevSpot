@@ -1,4 +1,43 @@
-.Logo {
-    width: 50px;
-    height: 150px
+.icons {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.search {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    justify-content: center;
+}
+
+
+.navbar {
+    display: flex;
+    background-color: crimson;
+    border: 3px solid green;
+    border-radius: 4px;
+    justify-content: space-evenly;
+    width:1000px;
+}
+
+.searchbar{
+    height:30px;
+    width: 400px;
+    margin: 5px 5px 5px 5px;
+}
+
+#friends{
+    margin-right: 300px;
+    height: 40px;
+    width:40px;
+    margin: 5px 5px 5px 5px;
+
+}
+
+#notification{
+    margin: 10px 10px 10px 10px;
+}
+
+#penis{
+    color: blue;
 }

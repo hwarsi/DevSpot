@@ -1,8 +1,17 @@
 import React, {Component} from 'react';  
-import logo from '../../static/img/Logo.png'
 import Logo from "./Logo"
 import SearchBar from './SearchBar'
 import ProfileButton from './Profilebutton';
+import Friendrequest from './FriendRequest';
+import Notification from './Notifications';
+import "./Navbar.css";
+
+
+
+
+
+
+
 
 
 
@@ -14,10 +23,12 @@ class NavBar extends Component {
 
     render() {
       return (
-        <div>
-          <SearchBar/>
+        <div className="navbar">
           <Logo />
+          <SearchBar/>
           <ProfileButton/>
+          <Friendrequest/>
+          <Notification/>
         </div>
       );
   }
