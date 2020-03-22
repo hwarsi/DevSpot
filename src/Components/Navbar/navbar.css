@@ -38,6 +38,33 @@
     margin: 10px 10px 10px 10px;
 }
 
-#penis{
-    color: blue;
+.images{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
 }
+.stylePanel{
+    display: flex;
+    border: 2px solid black;
+}
+
+.notificationTitle{
+    display: flex;
+    border: 2px solid black;
+    justify-content: center;
+}
+
+#trash{
+    display: flex;
+    margin: 20px 20px 20px 20px;
+    justify-content: center;
+}
+
+button{
+    justify-content: center;
+    width: 60px;
+    height: 20px;
+    border-radius: 10%;
+}
+
+

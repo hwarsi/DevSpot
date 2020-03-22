@@ -18,9 +18,9 @@ body {
         &:hover{
             background-color: cyan;
         };
-        &::after {
-            content: 'helloo...'
-        };
+      /*  &::after {
+            content: 
+        };*/
     }
 }
 
