@@ -6,7 +6,7 @@ import fatrash from '@fortawesome/fontawesome-free-solid/faTrash';
 
 
 const Panel = (props) => (
-        <ul>
+        <ul className="penis">
             <p className="notificationTitle">Notifications</p>
             {props.users.map((user,index) => (
                 <div key={user.id} className="stylePanel">
@@ -21,7 +21,7 @@ const Panel = (props) => (
 						size = "2x" 
 						onClick={props.deleteUsers} /> )}
                     </div>
-                    {props.type === "FriendRequest" && <button className ="button" onClick={props.deletefriendrequest}>Delete</button>}
+                    {props.type === "FriendRequest" && <button className ="button"onClick={props.deletefriendrequest}>Delete</button>}
                     {props.type === "FriendRequest" && <button onClick={props.addfriend}>Confirm</button>}
                 </div>
             ))}

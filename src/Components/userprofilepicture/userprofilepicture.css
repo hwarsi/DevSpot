@@ -1,0 +1,14 @@
+.banner{
+    position: absolute;
+    height: 300px;
+    width:1000px;
+    z-index: -1;
+}
+
+.profile{
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    margin-top: 130px;
+    margin-left: 20px;
+}
