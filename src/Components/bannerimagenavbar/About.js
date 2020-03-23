@@ -1,6 +1,4 @@
 import React, {Component} from 'react';  
-import { render } from 'node-sass';
-
 
         class About extends Component {
             constructor(props) {

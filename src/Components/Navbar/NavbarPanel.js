@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Navbar.css"
+import "./navbar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fatrash from '@fortawesome/fontawesome-free-solid/faTrash';
 
