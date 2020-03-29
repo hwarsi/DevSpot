@@ -3,6 +3,7 @@ import addfriends from '../../static/img/addfriends.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fausers from '@fortawesome/fontawesome-free-solid/faUsers';
 import Panel from './NavbarPanel';
+import axios from 'axios';
 
 
 
@@ -21,16 +22,26 @@ class FriendRequest extends Component {
 
     showfriendsrequest = () => {
         const { show } = this.state;
-        this.setState({
-            users: [
-                {id:0, name: "Kakahi Hatake", img: "https://vignette.wikia.nocookie.net/naruto/images/2/27/Kakashi_Hatake.png/revision/latest?cb=20170628120149"},
-                {id:1, name: "Itachi Uchiha", img: 'https://www.anime-planet.com/images/characters/itachi-uchiha-705.jpg'},
-                {id:2, name:"Thor", img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx953-aW4L92eHDDJj.jpg"},
-                {id:3, name: "Naruto Uzumaki", img: "https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/340?cb=20170621101134"},
-                {id:4, name: "Gon Freecss", img: "https://vignette.wikia.nocookie.net/hunterx/images/0/06/GonMugshot.png/revision/latest/scale-to-width-down/340?cb=20160704025705"},
-                {id:5, name: "Hisoka", img: "https://vignette.wikia.nocookie.net/hunterxhunter/images/b/b8/Hisoka_bloodlust.jpg/revision/latest?cb=20140214023234"}],
-                show: !show});
+        let URL = 'https://the-one-api.herokuapp.com/v1/character';
+        let HEADERS = {'content-type':'application/json', 'Authorization':'Bearer y8ed-PVZjOwid_UQKvfB'};
+
+        axios.get(URL, HEADERS)
+        .then((response) => {
+            let usersData = response.data.results;
+            console.log(usersData);
+            let users = [{name:"",img:""}];
+            let names = [];
+            let imgs = [];
+
+            for (let i=0; i<usersData.length; i++) {
+                let id = i;
+                let currentName = usersData[i]['name'];
+                let currentImages = usersData[i]["image"]
+                users.push({"id":id, 'name':currentName, "img":currentImages});
             }
+           this.setState({users, show:!show});
+        });
+}
 
             deletefriendrequest = (index,e) => {
                 const users = Object.assign([], this.state.users);

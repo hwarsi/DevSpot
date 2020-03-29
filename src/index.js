@@ -1,17 +1,16 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-
 import './styles/app.scss';
-
-import UserRegistration from './Components/UserRegistration'
-import NavBar from './Components/Navbar/Navbar'
+import UserRegistration from './Components/UserRegistration';
+import NavBar from './Components/Navbar/Navbar';
+import Layout from './Components/layout/layout';
+import './styles/overall.css';
 
 function MainApp() {
   return (
-    <div className="App">
+      <div className="overallcss">
         <NavBar/>
-        <UserRegistration />
-    </div>
+      </div>
   );
 }
 

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import "./navbar.css"
+import "./Navbar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fabell from '@fortawesome/fontawesome-free-solid/faBell';
 import fatrash from '@fortawesome/fontawesome-free-solid/faTrash';
 import Panel from './NavbarPanel';
+import axios from 'axios';
 
 
 
@@ -13,7 +14,7 @@ class Notification extends Component {
         super(props);
 
         this.state = { 
-            users: [{id:"", name:"", img:""}],
+            users: [ {name: "", img: ""}],
             show: false
         };
 
@@ -22,21 +23,29 @@ class Notification extends Component {
     }
 
     shownotification = () => {
-
         const { show } = this.state;
+        let URL = 'http://hp-api.herokuapp.com/api/characters';
+        let HEADERS = {'content-type':'application/json', 'authorization':'sdjfjdskfj45j4ekj'};
 
-        this.setState({
-            users: [
-                {id:0, name: "Thomas Shelby", img: "https://d2w9m16hs9jc37.cloudfront.net/dimg/blog/2019/09/b43a892e3f68c50a5b7ce996aa41a1af.jpg"},
-                {id:1, name: "Polly Shelby", img: "https://ichef.bbci.co.uk/images/ic/1200x675/p07l1zgq.jpg"},
-                {id:2, name:"Arthur Shelby", img: "https://i.redd.it/cbptte9nnhq21.jpg"},
-                {id:3, name: "Naruto Uzumaki", img: "https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/340?cb=20170621101134"},
-                {id:4, name: "Ichigo Kurosaki", img: "https://vignette.wikia.nocookie.net/bleach/images/5/52/591Ichigo_profile.png/revision/latest/scale-to-width-down/340?cb=20190129174528&path-prefix=en"},
-                {id:5, name: "Yusuke Urameshi", img: "https://imgix.ranker.com/user_node_img/122/2434937/original/yusuke-urameshi-fictional-characters-photo-u1?w=280&h=280&fit=crop&crop=faces&q=50&fm=pjpg"}],
-            show: !show});
-    }
+        axios.get(URL, HEADERS)
+        .then((response) => {
+            console.log(response);
+            let usersData = response.data;
+            let users = [{name:"",img:""}];
+            let names = [];
+            let imgs = [];
+
+            for (let i=0; i<usersData.length; i++) {
+                let id = i;
+                let currentName = usersData[i]['name'];
+                let currentImages = usersData[i]["image"]
+                users.push({"id":id, 'name':currentName, "img":currentImages});
+            }
+
+           this.setState({users, show:!show});
+        });
+}
        
-
     deleteUsers = (index,e) => {
         const users = Object.assign([], this.state.users);
         users.splice(index, 1);
@@ -51,7 +60,7 @@ class Notification extends Component {
                 icon={fabell} 
                 size = "2x" 
                 onClick={this.shownotification} className="dropbtn"/> 
-            {this.state.show && <Panel type="Notifications" users={this.state.users} deleteUsers={this.deleteUsers} />}
+            {this.state.show && <Panel type="Notifications" users={this.state.users} deleteUsers={this.deleteUsers}  />}
         </div>
         );
     }

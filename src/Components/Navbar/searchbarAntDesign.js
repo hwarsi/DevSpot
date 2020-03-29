@@ -11,13 +11,10 @@ class AntSearch extends Component {
       render() {
         return( 
             <div>
-    <Search
-      placeholder="input search text"
-      enterButton="Search"
-      size="large"
-      id = "antdesignsearch"
-      onSearch={value => console.log(value)} 
-    />
+       <Search placeholder="input search text"
+        onSearch={value => console.log(value)} 
+        enterButton style={{ width: 500, margin: 10}}/>
+
   </div>
         );
       }

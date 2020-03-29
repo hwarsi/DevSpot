@@ -1,6 +1,7 @@
 .icons {
-    height: 50px;
+    height: 40px;
     border-radius: 50%;
+    margin: 5px 5px 5px 5px;
 }
 
 .search {
@@ -14,11 +15,12 @@
 .navbar {
     display: flex;
     background-color: crimson;
-    border: 3px solid green;
+    border: 3px solid black;
     border-radius: 4px;
     justify-content: space-evenly;
-    width:1000px;
+    width:1440px;
     max-height: 60px;
+
 }
 
 .searchbar{
@@ -28,7 +30,6 @@
 }
 
 #friends{
-    margin-right: 300px;
     height: 40px;
     width:40px;
     margin: 5px 5px 5px 5px;
@@ -73,7 +74,10 @@ button{
     width: 200px;
     margin: 10px 0px 10px 10px;
 }
-
-
+.userprofile{
+    height: 40px;
+    border-radius: 50%;
+    margin: 6px 5px 5px 5px;
+}
 
 

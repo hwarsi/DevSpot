@@ -1,15 +1,13 @@
 import React, {Component} from 'react';  
-
-import "./navbar.css";
-
-import Logo from "./Logo"
-import SearchBar from './SearchBar'
+import "./Navbar.css";
+import Logo from "./Logo";
+import SearchBar from './SearchBar';
 import ProfileButton from './Profilebutton';
 import Friendrequest from './FriendRequest';
 import Notification from './Notifications';
 import Antsearch from './searchbarAntDesign';
-import BannerImage from '../userprofilepicture/Bannerimage'
-import Mininavbar from '../bannerimagenavbar/Mininavbar'
+import Mininavbar from '../bannerimagenavbar/Mininavbar';
+import BannerImage from '../bannerimagenavbar/Bannerimagenavbar'
 
 
 
@@ -28,13 +26,10 @@ class NavBar extends Component {
           <ProfileButton/>
           <Friendrequest/>
           <Notification/>
-
         </div>
-
       );
   }
 }
-
 
 export default NavBar;
   

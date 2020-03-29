@@ -1,0 +1,37 @@
+.post{
+    display: flex;
+    background-color: white;
+    margin-right: 50px;
+}
+
+.postcontainer{
+    display: flex;
+    background-color: white;
+    width: 300px;
+    margin-left: 400px;
+}
+.userprofile{
+    margin-left:-50px;
+    margin-top: 55px;
+}
+
+.Profiletext{
+    justify-content: space-evenly;
+}
+
+.Textbox{
+    margin-top: 50px;
+}
+
+
+#pencil{
+    margin-right: 5000px;
+}
+
+.titlepencil{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+
+

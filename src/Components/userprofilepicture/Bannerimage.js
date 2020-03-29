@@ -14,7 +14,6 @@ class BannerImage extends Component {
         return(
             <div>
                 <img src = {banner} className="banner"/>
-                <img src = {profile} className="profile"/>
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./navbar.css"
+import "./Navbar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fatrash from '@fortawesome/fontawesome-free-solid/faTrash';
 
@@ -13,7 +13,7 @@ const Panel = (props) => (
                     <div>
                         <img src={user.img} className="images"/>
                     </div>
-                    {props.type === "Notifications" && <p>{user.name} has posted on your wall!!!}</p>}
+                    {props.type === "Notifications" && <p>{user.name} has posted on your wall!!!</p>}
                     {props.type === "FriendRequest" && <p>{user.name}</p>}
                      <div>
 						{props.type === "Notifications" && (<FontAwesomeIcon 
