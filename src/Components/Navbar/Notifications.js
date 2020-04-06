@@ -14,16 +14,15 @@ class Notification extends Component {
         super(props);
 
         this.state = { 
-            users: [ {name: "", img: ""}],
-            show: false
+            users: [{name: "", img: ""}],
         };
 
-        this.shownotification = this.shownotification.bind(this)
+        this.showNotification = this.showNotification.bind(this)
         this.deleteUsers = this.deleteUsers.bind(this)
     }
 
-    shownotification = () => {
-        const { show } = this.state;
+    showNotification = () => {
+        console.log('here');
         let URL = 'http://hp-api.herokuapp.com/api/characters';
         let HEADERS = {'content-type':'application/json', 'authorization':'sdjfjdskfj45j4ekj'};
 
@@ -31,9 +30,7 @@ class Notification extends Component {
         .then((response) => {
             console.log(response);
             let usersData = response.data;
-            let users = [{name:"",img:""}];
-            let names = [];
-            let imgs = [];
+            let users = [];
 
             for (let i=0; i<usersData.length; i++) {
                 let id = i;
@@ -42,7 +39,16 @@ class Notification extends Component {
                 users.push({"id":id, 'name':currentName, "img":currentImages});
             }
 
-           this.setState({users, show:!show});
+           this.setState({users}, () => {
+                let panelType = this.props.panelType;
+                if (panelType === "" || panelType === "FriendRequest") this.props.updatePanelType("Notifications");
+                else this.props.updatePanelType("");
+           });
+
+        })
+        .catch((error) => {
+            console.log(error);
+            this.props.updatePanelType("");
         });
 }
        
@@ -59,8 +65,11 @@ class Notification extends Component {
                 id="notification" 
                 icon={fabell} 
                 size = "2x" 
-                onClick={this.shownotification} className="dropbtn"/> 
-            {this.state.show && <Panel type="Notifications" users={this.state.users} deleteUsers={this.deleteUsers}  />}
+                onClick={this.showNotification} className="dropbtn"/> 
+
+            {this.props.panelType === "Notifications" && (
+                <Panel panelType={this.props.panelType} users={this.state.users} deleteUsers={this.deleteUsers}  />
+            )}
         </div>
         );
     }

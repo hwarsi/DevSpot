@@ -13,7 +13,6 @@ class FriendRequest extends Component {
             super(props);
             this.state = {
                 users: [{id:"", name:"", img:""}],
-                show: false
             };
             this.showfriendsrequest = this.showfriendsrequest.bind(this);
             this.deletefriendrequest = this.deletefriendrequest.bind(this)
@@ -21,17 +20,14 @@ class FriendRequest extends Component {
         }
 
     showfriendsrequest = () => {
-        const { show } = this.state;
-        let URL = 'https://the-one-api.herokuapp.com/v1/character';
-        let HEADERS = {'content-type':'application/json', 'Authorization':'Bearer y8ed-PVZjOwid_UQKvfB'};
+        let URL = 'http://hp-api.herokuapp.com/api/characters';
+        let HEADERS = {'content-type':'application/json', 'authorization':'sdjfjdskfj45j4ekj'};
 
         axios.get(URL, HEADERS)
         .then((response) => {
-            let usersData = response.data.results;
-            console.log(usersData);
-            let users = [{name:"",img:""}];
-            let names = [];
-            let imgs = [];
+            console.log(response);
+            let usersData = response.data;
+            let users = [];
 
             for (let i=0; i<usersData.length; i++) {
                 let id = i;
@@ -39,7 +35,17 @@ class FriendRequest extends Component {
                 let currentImages = usersData[i]["image"]
                 users.push({"id":id, 'name':currentName, "img":currentImages});
             }
-           this.setState({users, show:!show});
+            this.setState({users}, () => {
+                if (this.props.panelType === "FriendRequest" ) {
+                    this.props.updatePanelType("");
+                } else if (this.props.panelType === "" || this.props.panelType === "Notifications") {
+                    this.props.updatePanelType("FriendRequest"); 
+                }
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            this.props.updatePanelType("");
         });
 }
 
@@ -55,13 +61,15 @@ class FriendRequest extends Component {
 
     render() {
         return(
-            <div>
+            <div className="notifications">
             <FontAwesomeIcon 
             id="friends" 
             icon={fausers} 
             size = "5x" 
             onClick={this.showfriendsrequest}/> 
-            {this.state.show && <Panel type="FriendRequest" users={this.state.users} deletefriendrequest={this.deletefriendrequest} addfriend={this.addfriend}/>}
+            {this.props.panelType === "FriendRequest" && ( 
+                <Panel panelType={this.props.panelType} users={this.state.users} deletefriendrequest={this.deletefriendrequest} addfriend={this.addfriend}/>
+            )}
             </div>
         );
      }

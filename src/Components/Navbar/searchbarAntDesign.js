@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 
 const { Search } = Input;
 
+
 class AntSearch extends Component {
     constructor(props) {
       super(props);
@@ -11,7 +12,7 @@ class AntSearch extends Component {
       render() {
         return( 
             <div>
-       <Search placeholder="input search text"
+       <Search onChange={(e)=>console.log(e.target.value)} placeholder="input search text"
         onSearch={value => console.log(value)} 
         enterButton style={{ width: 500, margin: 10}}/>
 
@@ -21,4 +22,3 @@ class AntSearch extends Component {
     }
 
 export default AntSearch;
-

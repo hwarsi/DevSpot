@@ -10,7 +10,13 @@ import TextIcon from './Inputicon'
 class Post extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      PostOnWall: ""
+    }
+    this.updatePostOnWall = this.updatePostOnWall.bind(this);
+  }
+  updatePostOnWall = (value) => {
+    this.setState({PostOnWall:value})
   }
 
     render() {
@@ -22,7 +28,7 @@ class Post extends Component {
         </div>
         <div className="Profiletext">
             <Profile/>
-            <Textbox/>
+            <Textbox panelType={this.state.PostOnWall} updatePostOnWall={this.updatePostOnWall}/>
         </div>
     </div>
 

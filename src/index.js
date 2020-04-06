@@ -10,6 +10,7 @@ function MainApp() {
   return (
       <div className="overallcss">
         <NavBar/>
+        <Layout/>
       </div>
   );
 }

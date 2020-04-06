@@ -21,8 +21,7 @@ class TextIcon extends Component {
         <FontAwesomeIcon
           icon={faPencilAlt}
           size= "2x"
-          id="pencil"/>
-        <p className="titlepencil">Create Post</p>
+          id="pencil"/> Create Post
       </div>
 
       );

@@ -7,16 +7,13 @@
 .postcontainer{
     display: flex;
     background-color: white;
+    margin-left: 550px;
     width: 300px;
-    margin-left: 400px;
+    height: 150px;
 }
 .userprofile{
     margin-left:-50px;
     margin-top: 55px;
-}
-
-.Profiletext{
-    justify-content: space-evenly;
 }
 
 .Textbox{
@@ -25,7 +22,7 @@
 
 
 #pencil{
-    margin-right: 5000px;
+    justify-content: space-evenly;
 }
 
 .titlepencil{
@@ -33,5 +30,62 @@
     margin-right: 100px;
 }
 
+.image{
+    height:40px;
+    border-radius: 50%;
+}
 
+.PostOnWall{
+    border: 1px black solid;
+    background-color: whitesmoke;
+    height: 100px;
+    width: 400px
+    }
+
+.topbar{
+    display: flex;
+    flex-direction: row;
+}
+.name{
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 10px;
+    color: rgb(0, 132, 255);
+}
+
+.text{
+    margin-top:10px;
+    font-size: 17px;
+    margin-left: 20px;
+}
+
+.engagementBar{
+    display: flex;
+    flex-direction: row;
+    border: 1px black solid;
+    background-color: whitesmoke;
+    justify-content: space-evenly;
+}
+
+.comments{
+    width: 400px;
+    border: 1px black solid;
+    border-radius: 30px;
+}
+
+.postCommentBox{
+    display: flex;
+    flex-direction: row;
+    border: 1px black solid;
+    background-color: white;
+}
+
+#comment{
+    margin-left: 20px;
+}
+
+.postcomment{
+    width:400px;
+    height:30px;
+}
 

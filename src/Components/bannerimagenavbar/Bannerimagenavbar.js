@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Mininavbar from './Mininavbar'
 import './Bannerimagenavbar.css'; 
 import BannerImage from '../userprofilepicture/Bannerimage' 
+import Post from '../post/postnavbar/Post'
 
 
 
@@ -16,6 +17,7 @@ class Wall extends Component {
           <div>
               <BannerImage/>
               <Mininavbar/>
+              <Post/>
           </div>
       );
   }
