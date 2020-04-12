@@ -37,8 +37,7 @@ class Comments extends Component {
       renderClick =  () => {
           const newComment = [];
           for (let i=1; i <= this.state.clicked; i++) {
-            newComment.push( <PostingComment NewComment={this.state.commentArea}/>)
-
+            newComment.push( <PostingComment NewComment={this.state.comment}/>)
           }
           return newComment
       }
