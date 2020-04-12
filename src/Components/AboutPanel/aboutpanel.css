@@ -1,0 +1,44 @@
+.AboutPanel{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 230px;
+    height: 290px;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+    position: static;
+}
+
+#workIcon{
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+#lives{
+    margin-bottom: 20px;
+    margin-left: 9px;
+
+}
+
+#from{
+    margin-bottom: 20px;
+    margin-left: 10px;
+}
+
+.intro{
+    font-size: xx-large;
+    margin-left: 39px;
+}
+
+#aboutpanelbutton{
+    display: flex;
+    width: 100px;
+    background-color: cyan;
+    margin-left: 50px;
+
+}
+
+
+.form{
+    margin-top: 100px;
+}

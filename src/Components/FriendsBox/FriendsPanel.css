@@ -1,0 +1,28 @@
+.friendsimages{
+    width: 100px;
+    height: 100px;
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+
+.container{
+    display: flex;
+  flex-flow: row wrap;
+  width: 400px;
+  justify-content: space-evenly;
+  background-color: white;
+  margin-top: 20px;
+}
+
+.FriendsPanel{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 400px;
+}
+
+.Title{
+    font-size: xx-large;
+    margin-top: 30px;
+    margin-left: 130px;
+}

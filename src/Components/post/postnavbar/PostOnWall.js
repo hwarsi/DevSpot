@@ -5,6 +5,7 @@ import fathumbsup from '@fortawesome/fontawesome-free-solid/faThumbsUp';
 import facomment from '@fortawesome/fontawesome-free-solid/faComment';
 import fasharesquare from '@fortawesome/fontawesome-free-solid/faShareSquare';
 import 'antd/dist/antd.css';
+import Comments from './CommentBox';
 import { Input } from 'antd';
 
 const { TextArea } = Input;
@@ -19,6 +20,8 @@ const PostOnWall = (props) => (
                 <div>{props.time}</div>
             </div>
         <div className="text">{props.text}</div>
+        <img src={props.uploadedImage} />
+
     </div>
     <div className="engagementBar">
         <div><FontAwesomeIcon  icon={fathumbsup} size="2x"/> Like</div>
@@ -26,12 +29,8 @@ const PostOnWall = (props) => (
         <div><FontAwesomeIcon  icon={fasharesquare} size="2x"/> Share</div>
     </div>
     <div className="postCommentBox">
-    <img src = {profile} className="image"/>
-    <TextArea placeholder="Write a comment" autoSize id="comment"/>
-    <div>     
-      </div>
+    <Comments/>
     </div>
-    <button className="postcomment">Post Comment</button>
 </div>
 )
   

@@ -16,7 +16,8 @@ class Textbox extends Component {
         text: "",
         show: false,
         curTime : new Date().toLocaleString(),
-        clicked: 0
+        clicked: 0,
+        uploadedImage: null
       };
     }
 
@@ -33,7 +34,7 @@ class Textbox extends Component {
       renderClick = () => {
         const newPost = [];
        for (let i = 1; i <= this.state.clicked; i++) {
-         newPost.push(<div key={i}> <PostOnWall value={i} PostOnWall={this.props.PostOnWall} text={this.state.text} time={this.state.curTime}/></div>);
+         newPost.push(<div key={i}> <PostOnWall value={i} PostOnWall={this.props.PostOnWall} text={this.state.text} time={this.state.curTime} uploadedImage={this.state.uploadedImage}/></div>);
        }
        return newPost;
        
@@ -49,6 +50,13 @@ class Textbox extends Component {
        console.log(newText)
      }
 
+     onChangePhoto = event => {
+      if (event.target.files && event.target.files[0]){
+         let img = event.target.files[0];
+         this.setState({ uploadedImage: URL.createObjectURL(img)});
+       }
+    }
+
       render() {
         return (
         <div>
@@ -59,6 +67,9 @@ class Textbox extends Component {
              value={this.state.textArea} >
             </textarea>
               <button className="postbutton" onClick={this.handleClick.bind(this)}>Post</button>
+              <div>
+              <input type="file" onChange={this.onChangePhoto} className="uploadImageButton"/>
+            </div>
               {this.renderClick()}
         </div>
   

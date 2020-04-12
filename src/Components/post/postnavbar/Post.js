@@ -1,5 +1,4 @@
 import React, {Component} from 'react';  
-import Photovideo from './Photo-video';
 import Textbox from './Textbox';
 import Profile from '../../Navbar/Profilebutton';
 import '../postnavbar/post.css';
@@ -24,7 +23,6 @@ class Post extends Component {
     <div className="postcontainer">
         <div className="post">
             <TextIcon/>
-            <Photovideo/>
         </div>
         <div className="Profiletext">
             <Profile/>

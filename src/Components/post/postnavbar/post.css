@@ -89,3 +89,8 @@
     height:30px;
 }
 
+.PostingComment{
+    width: 300px;
+    height: 25px;
+    color: red;
+}
