@@ -27,8 +27,9 @@ class Textbox extends Component {
       };
 
       this.handleClick = this.handleClick.bind(this);
-      this.handleChangeComment = this.handleChangeComment.bind(this);
-      this.handleChangeComment = this.handleChangeComment.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleComment = this.handleComment.bind(this);
+      this.addComment = this.addComment.bind(this);
 
     }
 
@@ -51,7 +52,7 @@ class Textbox extends Component {
                 posts.push({"id":id, 'post':currentPost, "time":currentTime, "comment": [comment]});
             }
 
-           this.setState({postInfo:posts});
+            this.setState({postInfo:posts});
 
         })
         .catch((error) => {
@@ -59,119 +60,105 @@ class Textbox extends Component {
         });
               // Axios Call to Get Posts
 
-}
-    
+    }
+      
     handleChange(event) {
       const myValue = event.target.value;
       this.setState({
         textArea: myValue
       })
     }
-    
-     
-     handleClick = e => {
-       e.preventDefault();
-       this.setState(({ clicked }) => ({ clicked: clicked + 1 }));
+        
+    handleClick = e => {
+      e.preventDefault();
+      this.setState(({ clicked }) => ({ clicked: clicked + 1 }));
 
-       let time = new Date().toLocaleString();
-       let uploadedImage = '';
-       let post = '';
-       let comment = '';
+      let time = new Date().toLocaleString();
+      let uploadedImage = '';
+      let post = '';
+      let comment = '';
 
 
-      if (e.target.files && e.target.files[0]){
-        uploadedImage = URL.createObjectURL(e.target.files[0]);
-      } else {
-        post = this.state.textArea;
-        uploadedImage = null;
+    if (e.target.files && e.target.files[0]){
+      uploadedImage = URL.createObjectURL(e.target.files[0]);
+    } else {
+      post = this.state.textArea;
+      uploadedImage = null;
+    }
+
+      let newPost = {post:post, time: time, 'uploadedImage':uploadedImage, comment: [comment]} // New Post
+
+      let currentPosts = this.state.postInfo;      // Old State
+
+      let newPosts = currentPosts;
+      newPosts.push(newPost);   //New State
+
+      this.setState({postInfo:newPosts});
+      const cors = require('cors')
+
+      let URL = 'http://127.0.0.1:5000/Walls/saveComments'
+      let HEADERS = {method: "POST","Content-Type": "application/x-www-form-urlencoded",'Access-Control-Allow-Origin': '*','Accept': 'application/json'}
+      let data = {
+        'post': post,
+        'time': time,
+        'comment': comment
       }
 
-       let newPost = {post:post, time: time, 'uploadedImage':uploadedImage, comment: [comment]} // New Post
+      console.log(this.state.postInfo)
+      axios.post(URL, HEADERS, data)
+        .then(function (response) {
+          console.log(response);
+          console.log(data)
+        }).catch(function (error) {
+        console.log(error);
+      });
+    }
 
-       let currentPosts = this.state.postInfo;      // Old State
-
-       let newPosts = currentPosts;
-       newPosts.push(newPost);   //New State
-
-       this.setState({postInfo:newPosts});
-       const cors = require('cors')
-
-       let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-       let HEADERS = {method: "POST","Content-Type": "application/x-www-form-urlencoded",'Access-Control-Allow-Origin': '*','Accept': 'application/json'}
-       let data = {
-         'post': post,
-         'time': time,
-         'comment': comment
-       }
-
-       console.log(this.state.postInfo)
-       axios.post(URL, HEADERS, data)
-         .then(function (response) {
-           console.log(response);
-           console.log(data)
-         }).catch(function (error) {
-          console.log(error);
-        });
-        }
-
-     handleChangeComment(event) {
+    handleComment(event) {
       const myValue = event.target.value;
       this.setState({
         commentArea: [myValue]
       })
     }
 
-    handleClickComment = (e) => {
-      e.preventDefault();
-      this.setState(({ clicked }) => ({ clicked: clicked + 1 }));
-      this.setState(({ commentClick }) => ({ commentClick: commentClick + 1 }))
-      let comment = this.state.commentArea
-      let newComment = comment
-      let currentComment = this.state.commentInfo;      
-      let newComments = [...currentComment, ...newComment]
-      let commentClick = this.state.commentClick
-      let click = this.state.clicked
-      let postInfo = this.state.postInfo;
-      console.log(newComments)
+    addComment = (time) => {
+      console.log(time);
+      let allPosts = this.state.postInfo;
+      let comment = this.state.commentArea;
 
-      while(click<Infinity) {
-        postInfo[click];
-        let postInfoCopy = this.state.postInfo
-        postInfoCopy.comment = [newComments]
-        this.setState({
-          postInfo: postInfoCopy
-        })
+      for (i = 0; i<allPosts.length; i++) {
+        let currentPost = allPosts[i];
 
+        if (currentPost['time'] === time) {
+          currentPost['comment'].push(comment)
+        } 
       }
-       
+
+      this.setState({postInfo:allPosts});
+
     }
 
-
-
-    
-
-      render() {
-        return (
-        <div>
-            <textarea className="Textbox" 
-            rows="2" cols="30"
-             type = "text" 
-             onChange={this.handleChange.bind(this)}
-             value={this.state.textArea} >
-            </textarea>
-              <button className="postbutton" onClick={this.handleClick}>Post</button>
-              <div>
-              <input type="file" onChange={this.handleClick} className="uploadImageButton"/>
+    render() {
+      return (
+      <div>
+          <textarea className="Textbox" 
+          rows="2" cols="30"
+            type = "text" 
+            onChange={this.handleChange.bind(this)}
+            value={this.state.textArea} >
+          </textarea>
+            <button className="postbutton" onClick={this.handleClick}>Post</button>
+            <div>
+            <input type="file" onChange={this.handleClick} className="uploadImageButton"/>
+          </div>
+          
+          {this.state.postInfo && (
+            <div>
+                <PostOnWall postInfo={this.state.postInfo}  handleComment={this.handleComment} addComment={this.addComment}/>
             </div>
-            
-            {this.state.postInfo && (
-              <div>
-                 <PostOnWall postInfo={this.state.postInfo}  onChange={this.handleChangeComment} 
-                  postInfo={this.state.postInfo} onClick={this.handleClickComment}/>
-              </div>
-            )}
-        </div>
-        );
+          )}
+      </div>
+      );
     }
   }
   

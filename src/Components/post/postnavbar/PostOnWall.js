@@ -33,11 +33,12 @@ const PostOnWall = (props) => (
                     <div><FontAwesomeIcon  icon={facomment} size="2x"/> Comment</div>
                     <div><FontAwesomeIcon  icon={fasharesquare} size="2x"/> Share</div>
                 </div>
+
                 <div className="postCommentBox">
                 <img src = {profile} className="image"/>
-                <TextArea type = "text" placeholder="Write a comment" autoSize id="comment" onChange={props.onChange}/>
+                <TextArea type = "text" placeholder="Write a comment" autoSize id="comment" onChange={props.handleComment}/>
                 <div>    
-                    <button onClick={props.onClick}></button>
+                    <button onClick={props.addComment(item.time)}></button>
                 </div>                
                 </div>
                 {item.comment.map( (items) => (
