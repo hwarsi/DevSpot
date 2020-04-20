@@ -1,5 +1,5 @@
 import React, {Component} from 'react';  
-import AboutPanel from './About pannel'
+import AboutPanel from './AboutPanel'
 import AboutPanelForm from './AboutPanelFrom'
 
 

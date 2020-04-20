@@ -94,7 +94,6 @@ class Textbox extends Component {
       newPosts.push(newPost);   //New State
 
       this.setState({postInfo:newPosts});
-      const cors = require('cors')
 
       let URL = 'http://127.0.0.1:5000/Walls/saveComments'
       let HEADERS = {method: "POST","Content-Type": "application/x-www-form-urlencoded",'Access-Control-Allow-Origin': '*','Accept': 'application/json'}
@@ -126,7 +125,7 @@ class Textbox extends Component {
       let allPosts = this.state.postInfo;
       let comment = this.state.commentArea;
 
-      for (i = 0; i<allPosts.length; i++) {
+      for (let i = 0; i<allPosts.length; i++) {
         let currentPost = allPosts[i];
 
         if (currentPost['time'] === time) {

@@ -1,8 +1,7 @@
 import React, { Component, useState}  from 'react';
-import AboutPanel from './About pannel';
+import AboutPanel from './AboutPanel';
 import {Modal, Button} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 
 class AboutPanelForm extends Component {
