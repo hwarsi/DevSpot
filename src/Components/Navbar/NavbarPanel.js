@@ -3,8 +3,6 @@ import "./Navbar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import fatrash from '@fortawesome/fontawesome-free-solid/faTrash';
 
-
-
 const Panel = (props) => (
         <ul className="Hey">
             <p className="notificationTitle">Notifications</p>

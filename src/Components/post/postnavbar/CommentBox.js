@@ -10,37 +10,45 @@ const { TextArea } = Input;
 class Comments extends Component {
     constructor(props) {
       super(props);
-      this.state = { commentArea: [],
-                    comment: '',
+      this.state = { commentArea: '',
+                    comment: [],
                     clicked:0}
                     }
 
-    handleChange(event) {
-        const newText = [];
+      handleChange(event) {
         const myValue = event.target.value;
-        newText.push(myValue);
         this.setState({
-            commentArea: newText
+          commentArea: myValue
         })
         console.log(this.state.commentArea)
-      } 
+      }
 
       handleClick = e => {
         e.preventDefault();
         this.setState(({ clicked }) => ({ clicked: clicked + 1 }));
-        this.setState({comment:this.state.commentArea});
-        const newText= [];
-        newText.push(this.state.comment)
-        console.log(newText)
+        let postComment = '';
+        postComment = this.state.commentArea
+
+        let newComment = {'comment': postComment}
+        console.log(newComment)
+
+        let currentComment = this.state.comment;
+        console.log(currentComment)
+
+        let newComments = currentComment;
+        newComments.push(newComment);
+        this.setState({comment:newComments})
+        console.log(this.state.comment);
       }
 
-      renderClick =  () => {
-          const newComment = [];
-          for (let i=1; i <= this.state.clicked; i++) {
-            newComment.push( <PostingComment NewComment={this.state.comment}/>)
-          }
-          return newComment
+      renderClick = () => {
+        const newButton = [];
+        for (let i = 1; i <= this.state.clicked; i++) {
+          newButton.push(<button key={i}>Post Comment</button>);
+        }
+        return newButton;
       }
+
 
 
     render() {
@@ -51,9 +59,8 @@ class Comments extends Component {
                 <TextArea placeholder="Write a comment" autoSize id="comment" onChange={this.handleChange.bind(this)}/>
                 <div>     
                 </div>
-                <button className="postcomment" onClick={this.handleClick.bind(this)}>Post Comment</button>
+                {this.renderClick()}
             </div>
-            {this.renderClick()}
         </div>
         )
     };
