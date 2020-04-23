@@ -173,6 +173,8 @@ class Textbox extends Component {
           currentPostInfo.push(targetPost);
         }
       }
+
+      console.log(currentPostInfo);
     }
 
     render() {
