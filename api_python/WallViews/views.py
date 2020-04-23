@@ -1,13 +1,12 @@
 from flask import Flask, Blueprint, jsonify, session, request
 from Utils.model import connectToDB
-import traceback
+import traceback, json
 import pymongo
-from flask_cors import CORS, cross_origin
-
-
-
+from flask_cors import CORS
 
 Wall = Blueprint('Walls', __name__, url_prefix='/Walls')
+CORS(Wall)
+
 
 @Wall.route('/getComments', methods=['GET'])
 def getComments():
@@ -27,19 +26,41 @@ def getComments():
         print(traceback.format_exc())
         return jsonify('Did not work!')
 
-@Wall.route('/saveComments', methods=['POST'])
-@cross_origin()
-def saveComments():
-    header['Access-Control-Allow-Origin'] = '*'
-    data = request.data     #{'comment':'Hey'}
-
+@Wall.route('/savePost', methods=['POST'])
+def savePost():
     db = connectToDB()
+    data = request.get_json()
+
+
+    #data = request.data     #{'comment':'Hey'}
+    #data = json.loads(data)
+    print("Penis")
+
+
+    #print(type(data))
+    print(data)
     commentCollection = db.Comments
-    commentCollection.insert_many(data)
-    app.config['CORS_HEADERS'] = 'Content-Type'
-
-
+    commentCollection.insert_one(data)
 
     return jsonify('Saved Data!')
 
+
+@Wall.route('/saveComments', methods=['POST'])
+def saveComments():
+    db = connectToDB()
+    data = request.get_json()
+    change_item = data['change_item']
+    searchTerm = data['searchTerm']
+
+    print(change_item)
+    print(searchTerm)
+    print(data)
+
+
+    newValues = {"$set": change_item}
+
+    db.Comments.update_one(searchTerm, newValues)
+
+
+    return jsonify('Success it worked')
 
