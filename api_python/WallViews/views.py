@@ -1,12 +1,12 @@
-from flask import Flask, Blueprint, jsonify, session, request
-from Utils.model import connectToDB
 import traceback, json
-import pymongo
+from flask import Flask, Blueprint, jsonify, session, request
 from flask_cors import CORS
+import pymongo
+
+from Utils.model import connectToDB
 
 Wall = Blueprint('Walls', __name__, url_prefix='/Walls')
 CORS(Wall)
-
 
 @Wall.route('/getComments', methods=['GET'])
 def getComments():
