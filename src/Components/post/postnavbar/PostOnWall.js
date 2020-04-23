@@ -9,6 +9,8 @@ import Comments from './CommentBox';
 import { Input } from 'antd';
 import Textbox from './Textbox';
 import PostingComment from './PostingComment'
+import Item from 'antd/lib/list/Item';
+import { CloseOutlined } from '@ant-design/icons';
 
 
 const { TextArea } = Input;
@@ -16,16 +18,16 @@ const { TextArea } = Input;
 
 const PostOnWall = (props) => (
     <div>
-        {props.postInfo.map( (item) => (
+        {props.postInfo.map( (post) => (
             <div>
                 <div className="PostOnWall">
                         <div className="topbar">
                             <img src = {profile} className="image"/>
                             <div className="name">Brad Pitt</div>
-                            <div>{item.time}</div>
+                            <div>{post.time}</div>
                         </div>
-                    <div className="text">{item.post}</div>
-                    <img src={item.uploadedImage} />
+                    <div className="text">{post.post}</div>
+                    <img src={post.uploadedImage} />
 
                 </div>
                 <div className="engagementBar">
@@ -37,13 +39,14 @@ const PostOnWall = (props) => (
                 <div className="postCommentBox">
                 <img src = {profile} className="image"/>
                 <TextArea type = "text" placeholder="Write a comment" autoSize id="comment" onChange={props.handleComment}/>
-                <div>    
-                    <button onClick={props.addComment(item.time)}></button>
+                <div>  
+                    <button id={post.time} onClick={props.addComment}></button>
                 </div>                
                 </div>
-                {item.comment.map( (items) => (
+                {post.comment.map( (comment) => (
                 <div>
-                    <div> {items} </div>
+                    <div> {comment} </div>
+                    <i id={comment.time} onClick={props.deleteComment}><CloseOutlined /></i>
                 </div>
                 ))
             }

@@ -20,16 +20,16 @@ class Textbox extends Component {
       this.state = {
         textArea: '',
         postInfo: [],
-        clicked: 0,
         commentArea: '',
         commentInfo: [],
-        commentClick: 0
+        commentClick: 0,
       };
 
       this.handleClick = this.handleClick.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.handleComment = this.handleComment.bind(this);
       this.addComment = this.addComment.bind(this);
+      this.deleteComment = this.deleteComment.bind(this);
 
     }
 
@@ -48,9 +48,11 @@ class Textbox extends Component {
                 let id = i;
                 let currentPost = postData[i]['post'];
                 let currentTime = postData[i]["time"]
-                let comment = postData[i]["comment"]
-                posts.push({"id":id, 'post':currentPost, "time":currentTime, "comment": [comment]});
+                let comments = postData[i]["comments"]
+                posts.push({"id":id, 'post':currentPost, "time":currentTime, "comment": comments});
             }
+
+            console.log(posts);
 
             this.setState({postInfo:posts});
 
@@ -71,13 +73,10 @@ class Textbox extends Component {
         
     handleClick = e => {
       e.preventDefault();
-      this.setState(({ clicked }) => ({ clicked: clicked + 1 }));
 
       let time = new Date().toLocaleString();
       let uploadedImage = '';
       let post = '';
-      let comment = '';
-
 
     if (e.target.files && e.target.files[0]){
       uploadedImage = URL.createObjectURL(e.target.files[0]);
@@ -86,7 +85,7 @@ class Textbox extends Component {
       uploadedImage = null;
     }
 
-      let newPost = {post:post, time: time, 'uploadedImage':uploadedImage, comment: [comment]} // New Post
+      let newPost = {post:post, time: time, uploadedImage: uploadedImage, comment: []} // New Post
 
       let currentPosts = this.state.postInfo;      // Old State
 
@@ -95,19 +94,16 @@ class Textbox extends Component {
 
       this.setState({postInfo:newPosts});
 
-      let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-      let HEADERS = {method: "POST","Content-Type": "application/x-www-form-urlencoded",'Access-Control-Allow-Origin': '*','Accept': 'application/json'}
-      let data = {
-        'post': post,
-        'time': time,
-        'comment': comment
-      }
+      let URL = 'http://127.0.0.1:5000/Walls/savePost'
+      let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
+
+      let data = {post:post, time: time, comments: []}
 
       console.log(this.state.postInfo)
-      axios.post(URL, HEADERS, data)
+      axios.post(URL, data, HEADERS)
         .then(function (response) {
           console.log(response);
-          console.log(data)
         }).catch(function (error) {
         console.log(error);
       });
@@ -120,22 +116,57 @@ class Textbox extends Component {
       })
     }
 
-    addComment = (time) => {
-      console.log(time);
+    addComment = (e) => {
+
+      let time = e.target.id;
       let allPosts = this.state.postInfo;
       let comment = this.state.commentArea;
 
       for (let i = 0; i<allPosts.length; i++) {
-        let currentPost = allPosts[i];
+        let currentPost = allPosts[i]; // finding info for current post
 
-        if (currentPost['time'] === time) {
-          currentPost['comment'].push(comment)
-        } 
+        console.log(currentPost);
+
+        if (currentPost['time'] === time) { // seing if current time matches with post time
+          let commentArray = currentPost['comment']; // I am setting my commentArray to equal my current comment 
+          commentArray.push(comment); // now I am pushing my current comment into my array 
+          let URL = 'http://127.0.0.1:5000/Walls/saveComments'
+          let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
+          let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
+          axios.post(URL, data, HEADERS)
+              .then(function (response) {
+                console.log(response);
+              }).catch(function (error) {
+              console.log(error);
+            }
+              )}
+
+    console.log(allPosts);
+
+    this.setState({postInfo:allPosts});
       }
-
-      this.setState({postInfo:allPosts});
-
     }
+
+    deleteComment = (e) => {
+      let time = e.target.id;
+      let allPosts = this.state.postInfo;
+      let currentPost = allPosts; 
+      let currentPostInfo = [];
+      //console.log(allPosts[0]['time'])
+
+
+      for(let i = 0; i<allPosts.length; i++) {
+        let targetPost = allPosts[i]
+        console.log(i)
+        console.log(allPosts[i])
+        if (allPosts[i]['time'] === time) {
+          currentPostInfo.push(allPosts[i])
+        }
+      }
+    }
+
+
 
     render() {
       return (
@@ -153,7 +184,10 @@ class Textbox extends Component {
           
           {this.state.postInfo && (
             <div>
-                <PostOnWall postInfo={this.state.postInfo}  handleComment={this.handleComment} addComment={this.addComment}/>
+                <PostOnWall postInfo={this.state.postInfo}  
+                handleComment={this.handleComment} 
+                addComment={this.addComment}
+                deleteComment={this.deleteComment}/>
             </div>
           )}
       </div>
