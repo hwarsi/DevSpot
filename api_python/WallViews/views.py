@@ -31,13 +31,6 @@ def savePost():
     db = connectToDB()
     data = request.get_json()
 
-
-    #data = request.data     #{'comment':'Hey'}
-    #data = json.loads(data)
-    print("Penis")
-
-
-    #print(type(data))
     print(data)
     commentCollection = db.Comments
     commentCollection.insert_one(data)
@@ -56,11 +49,9 @@ def saveComments():
     print(searchTerm)
     print(data)
 
-
     newValues = {"$set": change_item}
 
     db.Comments.update_one(searchTerm, newValues)
-
 
     return jsonify('Success it worked')
 
