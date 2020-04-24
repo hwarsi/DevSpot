@@ -19,8 +19,7 @@ class Textbox extends Component {
       this.state = {
         textArea: '',
         postInfo: [],
-        commentArea: '',
-        commentInfo: [],
+        commentArea: ''
       };
 
       this.handleClick = this.handleClick.bind(this);
