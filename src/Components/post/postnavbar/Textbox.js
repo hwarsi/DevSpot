@@ -168,43 +168,6 @@ class Textbox extends Component {
 
         targetPost = allPosts[i];                   
 
-<<<<<<< HEAD
-      for(let i = 0; i<allPosts.length; i++) {
-        let targetPost = allPosts[i]
-        console.log(postTime);
-        console.log(time);
-        if (targetPost['time'] === postTime) {
-         console.log(time);
-          currentPostInfo.push(targetPost)
-        }
-      }
-
-      for(let i = 0; i<currentPostInfo; i++) {
-        let targetComment = currentPostInfo[i]
-        let commentArray = currentPostInfo['comment']
-        if (targetComment['Currenttime'] === time) {
-          commentArray.push(commentDict)
-              let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-              let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
-              'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
-              let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
-                  axios.post(URL, data, HEADERS)
-                      .then(function (response) {
-                        console.log(response);
-                      }).catch(function (error) {
-                      console.log(error);
-                    }
-                    )
-                } 
-                this.setState({postInfo:allPosts});
-
-           }
-     // console.log(currentPostInfo);
-      
-    }
-  
- 
-=======
         if (targetPost['time'] === postTime) break;   // Stops the loop when we find the right post
       }
 
@@ -222,7 +185,6 @@ class Textbox extends Component {
                     'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
                     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 
                     'accept': 'application/json', 'content-type’': 'application/json'}
->>>>>>> fb79a0c2d1915cd45578e6886432db33b5be0627
 
         let data = {"change_item": {"comments": comments }, "searchTerm": {"post": targetPost["post"], "time": targetPost["time"] }}
         
