@@ -172,9 +172,9 @@ class Textbox extends Component {
       for(let i = 0; i<allPosts.length; i++) {
         let targetPost = allPosts[i]
         console.log(postTime);
-        //console.log(time);
+        console.log(time);
         if (targetPost['time'] === postTime) {
-         // console.log(time);
+         console.log(time);
           currentPostInfo.push(targetPost)
         }
       }
@@ -184,29 +184,26 @@ class Textbox extends Component {
         let commentArray = currentPostInfo['comment']
         if (targetComment['Currenttime'] === time) {
           commentArray.push(commentDict)
-          let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-          let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
-          let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
-          axios.post(URL, data, HEADERS)
-              .then(function (response) {
-                console.log(response);
-              }).catch(function (error) {
-              console.log(error);
-            }
-            )
-        } 
-        this.setState({postInfo:allPosts});
+              let URL = 'http://127.0.0.1:5000/Walls/saveComments'
+              let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+              'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
+              let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
+                  axios.post(URL, data, HEADERS)
+                      .then(function (response) {
+                        console.log(response);
+                      }).catch(function (error) {
+                      console.log(error);
+                    }
+                    )
+                } 
+                this.setState({postInfo:allPosts});
 
-      }
-      console.log(currentPostInfo);
-
+           }
+     // console.log(currentPostInfo);
       
     }
   
-
-
-    
+ 
 
     render() {
       return (
