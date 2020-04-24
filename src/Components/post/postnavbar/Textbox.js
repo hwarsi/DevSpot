@@ -10,7 +10,6 @@ import profile from '../../../static/img/profile.jpg'
 import axios from 'axios';
 
 
-
 const { TextArea } = Input;
 
 class Textbox extends Component {
@@ -47,9 +46,9 @@ class Textbox extends Component {
             for (let i=0; i<postData.length; i++) {
                 let id = i;
                 let currentPost = postData[i]['post'];
-                let currentTime = postData[i]["time"]
+                let time = postData[i]["time"]
                 let comments = postData[i]["comments"]
-                posts.push({"id":id, 'post':currentPost, "time":currentTime, "comment": comments});
+                posts.push({"id":id, 'post':currentPost, "time":time, "comment": comments});
             }
 
             console.log(posts);
@@ -92,8 +91,6 @@ class Textbox extends Component {
       let newPosts = currentPosts;
       newPosts.push(newPost);   //New State
 
-      this.setState({postInfo:newPosts});
-
       let URL = 'http://127.0.0.1:5000/Walls/savePost'
       let HEADERS = { 'Access-Control-Allow-Origin': '*',
                       'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
@@ -102,13 +99,14 @@ class Textbox extends Component {
 
       let data = {post:post, time: time, comments: []}
 
-      console.log(this.state.postInfo)
       axios.post(URL, data, HEADERS)
         .then( (response) => {
           console.log(response);
+          this.setState({postInfo:newPosts});
         })
         .catch( (error) => {
           console.log(error);
+          alert('Failed to save post!')
         });
     }
 
@@ -121,93 +119,91 @@ class Textbox extends Component {
 
     addComment = (e) => {
 
-      let time = e.target.id;
+      let postTime = e.target.id;
       let allPosts = this.state.postInfo;
       let comment = this.state.commentArea;
-      let Currenttime = new Date().toLocaleString();
-      let commentDict = {"comment":comment, "Currenttime":Currenttime}
+      let time = new Date().toLocaleString();
+
+      let newComment = {"comment":comment, "time":time}
 
       for (let i = 0; i<allPosts.length; i++) {
         let currentPost = allPosts[i]; // finding info for current post
 
-        console.log(currentPost);
+        let commentArray;
 
-        if (currentPost['time'] === time) { // seing if current time matches with post time
+        if (currentPost['time'] === postTime) { // seing if current time matches with post time
 
-          let commentArray = currentPost['comment']; // I am setting my commentArray to equal my current comment 
-          commentArray.push(commentDict); // now I am pushing my current comment into my array 
-          let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-          let HEADERS = { 'Access-Control-Allow-Origin': '*',
-                      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
-                      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 
-                      'accept': 'application/json', 'content-type’': 'application/json'}
-          
-          let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
-    
-          axios.post(URL, data, HEADERS)
-            .then(function (response) {
-              console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
+          commentArray = currentPost['comment']; // I am setting my commentArray to equal my current comment 
+          commentArray.push(newComment); // now I am pushing my current comment into my array 
+      
         }
-        console.log(allPosts);
 
-        this.setState({postInfo:allPosts});
+        let URL = 'http://127.0.0.1:5000/Walls/saveComments'
+        let HEADERS = { 'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 
+                    'accept': 'application/json', 'content-type’': 'application/json'}
+        
+        let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
+  
+        axios.post(URL, data, HEADERS)
+          .then(function (response) {
+            console.log(response);
+            this.setState({postInfo:allPosts});     //Set State when everything in the backend works out.
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert('Failed to save comment!')
+          })
       }
     }
 
     deleteComment = (e) => {
-      let time = e.target.id;
+      let commentTime = e.target.id;
       let postTime = e.target.name;
+      console.log(commentTime);
+      console.log(postTime);
+
       let allPosts = this.state.postInfo;
-      let currentPost = allPosts; 
-      let currentPostInfo = [];
-      //console.log(allPosts[0]['time'])
-      let commentDict = {"comment":null, "Currenttime":null}
+      let targetPost;
 
+      for (let i = 0; i<allPosts.length; i++) {       // Loops over all Posts
 
+        targetPost = allPosts[i];                   
 
-      for(let i = 0; i<allPosts.length; i++) {
-        let targetPost = allPosts[i]
-        console.log(postTime);
-        //console.log(time);
-        if (targetPost['time'] === postTime) {
-         // console.log(time);
-          currentPostInfo.push(targetPost)
-        }
+        if (targetPost['time'] === postTime) break;   // Stops the loop when we find the right post
       }
 
-      for(let i = 0; i<currentPostInfo; i++) {
-        let targetComment = currentPostInfo[i]
-        let commentArray = currentPostInfo['comment']
-        if (targetComment['Currenttime'] === time) {
-          commentArray.push(commentDict)
-          let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-          let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
-          let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
-          axios.post(URL, data, HEADERS)
-              .then(function (response) {
-                console.log(response);
-              }).catch(function (error) {
+      let comments = targetPost['comment']     
+      let targetComment;    
+
+      for (let i = 0; i < comments; i++) {           // Loops over all comments
+
+        targetComment = comments[i]
+
+        if (targetComment['time'] === commentTime) comments.splice(i)       // Remove Comment at that index
+
+        let URL = 'http://127.0.0.1:5000/Walls/saveComments'
+        let HEADERS = { 'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 
+                    'accept': 'application/json', 'content-type’': 'application/json'}
+
+        let data = {"change_item": {"comments": comments }, "searchTerm": {"post": targetPost["post"], "time": targetPost["time"] }}
+        
+        axios.post(URL, data, HEADERS)
+            .then( (response) => {
+              console.log(response);
+              this.setState({postInfo:allPosts});   //Set State when everything in the backend works out.
+            })
+            .catch( (error) => {
               console.log(error);
-            }
-            )
-        } 
-        this.setState({postInfo:allPosts});
-
-      }
-      console.log(currentPostInfo);
-
-      
+              alert('Failed to delete comment!')
+          }
+        )
+      }     
     }
   
-
-
-    
-
     render() {
       return (
       <div>
@@ -225,9 +221,9 @@ class Textbox extends Component {
           {this.state.postInfo && (
             <div>
                 <PostOnWall postInfo={this.state.postInfo}  
-                handleComment={this.handleComment} 
-                addComment={this.addComment}
-                deleteComment={this.deleteComment}/>
+                  handleComment={this.handleComment} 
+                  addComment={this.addComment}
+                  deleteComment={this.deleteComment}/>
             </div>
           )}
       </div>
