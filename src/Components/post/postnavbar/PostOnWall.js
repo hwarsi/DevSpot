@@ -43,7 +43,7 @@ const PostOnWall = (props) => (
                     <button id={post.time} onClick={props.addComment}></button>
                 </div>                
                 </div>
-                {post.comment.map( (comment, post) => (
+                {post.comment.map( (comment) => (
                 <div>
                     <div> {comment.comment} {comment.time} </div>
                     <i  onClick={(e) => props.deleteComment(e, comment.time, post.time)}><CloseOutlined /></i>

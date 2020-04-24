@@ -159,8 +159,6 @@ class Textbox extends Component {
     }
 
     deleteComment = (e, commentTime, postTime) => {
-      //let commentTime = e.target.id;
-      //let postTime = e.target.name;
       console.log(commentTime);
       console.log(postTime);
 
