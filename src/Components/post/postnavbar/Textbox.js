@@ -22,7 +22,6 @@ class Textbox extends Component {
         postInfo: [],
         commentArea: '',
         commentInfo: [],
-        commentClick: 0,
       };
 
       this.handleClick = this.handleClick.bind(this);
@@ -35,6 +34,7 @@ class Textbox extends Component {
 
     componentWillMount() {
 
+        // Axios Call to GET Posts
         let URL = 'http://127.0.0.1:5000/Walls/getComments ';
         let HEADERS = {'content-type':'application/json', 'authorization':'sdjfjdskfj45j4ekj'};
 
@@ -60,7 +60,7 @@ class Textbox extends Component {
         .catch((error) => {
             console.log(error);
         });
-              // Axios Call to Get Posts
+
 
     }
       
@@ -78,12 +78,12 @@ class Textbox extends Component {
       let uploadedImage = '';
       let post = '';
 
-    if (e.target.files && e.target.files[0]){
-      uploadedImage = URL.createObjectURL(e.target.files[0]);
-    } else {
-      post = this.state.textArea;
-      uploadedImage = null;
-    }
+      if (e.target.files && e.target.files[0]){
+        uploadedImage = URL.createObjectURL(e.target.files[0]);
+      } else {
+        post = this.state.textArea;
+        uploadedImage = null;
+      }
 
       let newPost = {post:post, time: time, uploadedImage: uploadedImage, comment: []} // New Post
 
@@ -95,18 +95,21 @@ class Textbox extends Component {
       this.setState({postInfo:newPosts});
 
       let URL = 'http://127.0.0.1:5000/Walls/savePost'
-      let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
+      let HEADERS = { 'Access-Control-Allow-Origin': '*',
+                      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+                      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 
+                      'accept': 'application/json', 'content-type’': 'application/json'}
 
       let data = {post:post, time: time, comments: []}
 
       console.log(this.state.postInfo)
       axios.post(URL, data, HEADERS)
-        .then(function (response) {
+        .then( (response) => {
           console.log(response);
-        }).catch(function (error) {
-        console.log(error);
-      });
+        })
+        .catch( (error) => {
+          console.log(error);
+        });
     }
 
     handleComment(event) {
@@ -130,23 +133,33 @@ class Textbox extends Component {
         console.log(currentPost);
 
         if (currentPost['time'] === time) { // seing if current time matches with post time
+
           let commentArray = currentPost['comment']; // I am setting my commentArray to equal my current comment 
+<<<<<<< HEAD
           commentArray.push(commentDict); // now I am pushing my current comment into my array 
+=======
+          commentArray.push(comment); // now I am pushing my current comment into my array 
+
+>>>>>>> bd27f75b1741c2c4b99fc5cb78b8ea67ea6bc84d
           let URL = 'http://127.0.0.1:5000/Walls/saveComments'
-          let HEADERS = {'Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 'accept': 'application/json', 'content-type’': 'application/json'}
+          let HEADERS = { 'Access-Control-Allow-Origin': '*',
+                      'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
+                      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept', 
+                      'accept': 'application/json', 'content-type’': 'application/json'}
+          
           let data = {"change_item": {"comments": commentArray }, "searchTerm": {"post": currentPost["post"], "time": currentPost["time"] }}
+    
           axios.post(URL, data, HEADERS)
-              .then(function (response) {
-                console.log(response);
-              }).catch(function (error) {
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
               console.log(error);
-            }
-              )}
+            })
+        }
+        console.log(allPosts);
 
-    console.log(allPosts);
-
-    this.setState({postInfo:allPosts});
+        this.setState({postInfo:allPosts});
       }
     }
 
@@ -162,6 +175,7 @@ class Textbox extends Component {
 
 
       for(let i = 0; i<allPosts.length; i++) {
+<<<<<<< HEAD
         let targetPost = allPosts[i]
         console.log(postTime);
         //console.log(time);
@@ -194,7 +208,18 @@ class Textbox extends Component {
       
     }
 
+=======
+        let targetPost = allPosts[i];
+        console.log(i);
+        console.log(targetPost);
+        if (targetPost['time'] === time) {
+          currentPostInfo.push(targetPost);
+        }
+      }
+>>>>>>> bd27f75b1741c2c4b99fc5cb78b8ea67ea6bc84d
 
+      console.log(currentPostInfo);
+    }
 
     render() {
       return (
