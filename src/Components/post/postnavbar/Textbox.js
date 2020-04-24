@@ -135,12 +135,7 @@ class Textbox extends Component {
         if (currentPost['time'] === time) { // seing if current time matches with post time
 
           let commentArray = currentPost['comment']; // I am setting my commentArray to equal my current comment 
-<<<<<<< HEAD
           commentArray.push(commentDict); // now I am pushing my current comment into my array 
-=======
-          commentArray.push(comment); // now I am pushing my current comment into my array 
-
->>>>>>> bd27f75b1741c2c4b99fc5cb78b8ea67ea6bc84d
           let URL = 'http://127.0.0.1:5000/Walls/saveComments'
           let HEADERS = { 'Access-Control-Allow-Origin': '*',
                       'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS', 
@@ -175,7 +170,6 @@ class Textbox extends Component {
 
 
       for(let i = 0; i<allPosts.length; i++) {
-<<<<<<< HEAD
         let targetPost = allPosts[i]
         console.log(postTime);
         //console.log(time);
@@ -205,21 +199,14 @@ class Textbox extends Component {
         this.setState({postInfo:allPosts});
 
       }
+      console.log(currentPostInfo);
+
       
     }
+  
 
-=======
-        let targetPost = allPosts[i];
-        console.log(i);
-        console.log(targetPost);
-        if (targetPost['time'] === time) {
-          currentPostInfo.push(targetPost);
-        }
-      }
->>>>>>> bd27f75b1741c2c4b99fc5cb78b8ea67ea6bc84d
 
-      console.log(currentPostInfo);
-    }
+    
 
     render() {
       return (
@@ -247,6 +234,7 @@ class Textbox extends Component {
       );
     }
   }
+  
   
 
 export default Textbox;
