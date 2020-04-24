@@ -43,10 +43,10 @@ const PostOnWall = (props) => (
                     <button id={post.time} onClick={props.addComment}></button>
                 </div>                
                 </div>
-                {post.comment.map( (comment) => (
+                {post.comment.map( (comment, post) => (
                 <div>
-                    <div> {comment} </div>
-                    <i id={comment.time} onClick={props.deleteComment}><CloseOutlined /></i>
+                    <div> {comment.comment} {comment.Currenttime} </div>
+                    <i  id={comment.Currenttime} name={post.time} onClick={props.deleteComment}><CloseOutlined /></i>
                 </div>
                 ))
             }
